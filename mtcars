@@ -1,0 +1,49 @@
+#Sample dataset
+?mtcars
+#importing dataset in R
+data(mtcars)
+head(mtcars)
+#Structure of the dataset
+str(mtcars)
+#Summary of the dataset
+summary(mtcars)
+#Plots between 2 variables
+plot(mtcars$cyl,mtcars$mpg)
+plot(mtcars$mpg,mtcars$cyl)
+mtcars$cyl=as.factor(mtcars$cyl)
+hist(mtcars$mpg)
+#Plotting 2 variables using ggplot2 package
+library(ggplot2)
+ggplot(mtcars,aes(cyl,mpg))+geom_point()
+ggplot(mtcars,aes(factor(cyl),mpg))+geom_bar(stat="identity")
+ggplot(mtcars,aes(factor(cyl),mpg,fill=factor(am)))+
+  geom_bar(stat="identity")
+#Histogram of mpg(Target variable)
+ggplot(mtcars,aes(mpg))+geom_histogram()
+ggplot(mtcars,aes(factor(cyl),mpg,fill=factor(am)))+
+  geom_bar(stat="identity",position = "dodge")
+ggplot(mtcars,aes(qsec,mpg))+geom_point()
+ggplot(mtcars,aes(factor(vs),mpg))+geom_bar(stat ="identity")
+ggplot(mtcars,aes(qsec,mpg))+geom_point()
+ggplot(mtcars,aes(factor(am),mpg))+geom_bar(stat = "identity")
+ggplot(mtcars,aes(factor(gear),mpg))+geom_bar(stat ="identity")
+head(mtcars)
+ggplot(mtcars,aes(factor(vs),mpg))+geom_bar(stat ="identity")
+#Multiple linear regression for the model
+master=lm(mpg~ cyl+disp+hp+gear+wt+carb,mtcars)
+summary(master)
+#Prediction
+mypred=predict(master,mtcars)
+head(mypred)
+head(mtcars)
+#Root mean square error
+myrmse= sqrt(mean((mtcars$mpg - mypred)^2))
+myrmse
+#Multiple linear regression for relevant input variables
+master1=lm(mpg~wt+hp,mtcars)
+summary(master1)
+mypred1=predict(master1,mtcars)
+#Root mean square error of the model
+myrmse1= sqrt(mean((mtcars$mpg - mypred1)^2))
+myrmse1
+
